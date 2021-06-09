@@ -1,17 +1,29 @@
 //import liraries
+import 'react-native-gesture-handler';
 import React, { useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import Splash from 'react-native-splash-screen'
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import {Home} from './src/screens'
+import {ROUTE} from './src/constants';
+import Tabs from './src/navigations/tabs'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
 // create a component
+const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
 
 const App = () => {
   useEffect(()=>{
     Splash.hide()
   },[])
   return (
-    <View style={styles.container}>
-      <Text>MyComponent</Text>
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator screenOptions={{headerShown: false}}>
+        <Stack.Screen name={ROUTE.HOME} component={Tabs} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
 
