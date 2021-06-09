@@ -1,9 +1,13 @@
 //import liraries
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-
+import Splash from 'react-native-splash-screen'
 // create a component
+
 const App = () => {
+  useEffect(()=>{
+    Splash.hide()
+  },[])
   return (
     <View style={styles.container}>
       <Text>MyComponent</Text>
