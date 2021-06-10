@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
         shadowRadius: 2,
         elevation: 5,
         paddingHorizontal:5,
-        paddingVertical: 15,
+        paddingVertical: 10,
         width: SIZE.width*0.8,
         marginTop: 15,
 

@@ -12,6 +12,7 @@ target 'Abcom' do
     :hermes_enabled => false
   )
 pod 'RNSVG', :path => '../node_modules/react-native-svg'
+  pod 'react-native-fbsdk', :path => '../node_modules/react-native-fbsdk'
 
   target 'AbcomTests' do
     inherit! :complete

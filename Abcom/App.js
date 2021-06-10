@@ -7,7 +7,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { SignIn, SignUp } from './src/screens'
 import { ROUTE } from './src/constants';
 import Tabs from './src/navigations/tabs'
-
+import auth from '@react-native-firebase/auth';
 // create a component
 const Stack = createStackNavigator();
 

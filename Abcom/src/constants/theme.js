@@ -45,7 +45,7 @@ export const FONTS = {
     body2 :{fontFamily:"Roboto-Medium",fontSize: SIZE.body2, lineHeight: 30},
     body3 :{fontFamily:"Roboto-Medium",fontSize: SIZE.body3, lineHeight: 22},
     body4 :{fontFamily:"Roboto-Regular",fontSize: SIZE.body4, lineHeight: 22},
-    body5 :{fontFamily:"Roboto-ThinItalic",fontSize: SIZE.body5, lineHeight: 22},
+    body5 :{fontFamily:"Roboto-Medium",fontSize: SIZE.body5, lineHeight: 22},
     
 }
 
