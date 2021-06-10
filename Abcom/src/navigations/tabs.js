@@ -1,44 +1,50 @@
 import React, { FC } from 'react'
-import { Home, Search, Bag, Setting, Account } from '../screens'
+import { Home, Search, Bag, Setting, Account, ShopingCart } from '../screens'
 import { FONTS, SIZE, COLORS, ROUTE, icons } from '../constants'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-
+import { House, HouseBlack, Find, FindBlack, Heart, HeartBlack, Settings, SettingBlack, Accounts, AccountBlack } from '../assets/icons'
 const Tab = createBottomTabNavigator()
 
 const Tabs = (props) => {
     return (
         <Tab.Navigator tabBarOptions=
             {{
-                showLabel: true,
+                showLabel: false,
                 style: styles.tabStyle
             }}
         >
-            <Tab.Screen name={ROUTE.HOME} component={Home}/>
-            {/* <Tab.Screen name={ROUTE.SEARCH} component={Search} options={{
+            <Tab.Screen name={ROUTE.HOME} component={Home} options={{
                 tabBarIcon: ({ focused }) => (
-                    renderTabItem(focused, ROUTE.SEARCH, icons.search)
+                    focused ? <HouseBlack width={24} height={24} /> : <House width={20} height={20} />
+                )
+            }}
+            />
+            <Tab.Screen name={ROUTE.SEARCH} component={Search} options={{
+                tabBarIcon: ({ focused }) => (
+                    focused ? <FindBlack width={24} height={24} /> : <Find width={24} height={24} />
                 )
             }} />
-            <Tab.Screen name={ROUTE.BAG} component={Bag} options={{
+            <Tab.Screen name={ROUTE.BAG} component={ShopingCart} options={{
                 tabBarIcon: ({ focused }) => (
-                    renderTabItem(focused, ROUTE.BAG, icons.bag)
+                    focused ? <HeartBlack width={28} height={28} /> : <Heart width={28} height={28} />
                 ),
                 tabBarButton: (props) => (
                     <TabarCustomButton {...props} />
                 )
 
             }} />
+
             <Tab.Screen name={ROUTE.SETTING} component={Setting} options={{
                 tabBarIcon: ({ focused }) => (
-                    renderTabItem(focused, ROUTE.SETTING, icons.setting)
+                    focused ? <SettingBlack width={24} height={24} /> : <Settings width={24} height={24} />
                 )
             }} />
             <Tab.Screen name={ROUTE.ACCOUNT} component={Account} options={{
                 tabBarIcon: ({ focused }) => (
-                    renderTabItem(focused, ROUTE.ACCOUNT, icons.account)
+                    focused ? <AccountBlack width={24} height={24} /> : <Accounts width={24} height={24} />
                 )
-            }} /> */}
+            }} />
         </Tab.Navigator>
     )
 }
@@ -50,14 +56,6 @@ const TabarCustomButton = (children) => {
                 {children.children}
             </View>
         </TouchableOpacity>
-    )
-}
-const renderTabItem = (focused, label, icon) => {
-    return (
-        <Image
-            source={icon}
-            resizeMode='contain'
-            style={{ width: 30, height: 30, tintColor: focused ? COLORS.primary : COLORS.secondary }} />
     )
 }
 
@@ -79,17 +77,17 @@ const styles = StyleSheet.create({
     tabCustom: {
         justifyContent: 'center',
         alignItems: 'center',
-        top:-30
+        top: -30
     },
     tabView: {
-        width: 60, 
-        justifyContent: 'center', 
+        width: 60,
+        justifyContent: 'center',
         alignItems: 'center',
-         height: 60, 
-         borderRadius: 35, 
-         backgroundColor: COLORS.aliceblue,
-         shadowOpacity: 3,
-         shadowRadius: 10
+        height: 60,
+        borderRadius: 35,
+        backgroundColor: COLORS.aliceblue,
+        shadowOpacity: 3,
+        shadowRadius: 10
     }
 })
 export default Tabs

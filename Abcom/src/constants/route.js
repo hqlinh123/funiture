@@ -4,6 +4,8 @@ const ROUTE = {
     BAG: 'Bag',
     SETTING: 'Setting',
     ACCOUNT: 'Account',
+    SIGN_IN: 'SignIn',
+    SIGN_UP: 'SignUp',
 }
 
 export default ROUTE
