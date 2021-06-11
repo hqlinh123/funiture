@@ -10,8 +10,11 @@ const Tab = createBottomTabNavigator();
 // create a component
 
 const Home = ({route, navigation}) => {
+    const userInfo = route.params ? route.params : {user:{name:"Đăng nhập"}}
     return (
-       <></>
+    <SafeAreaView>
+        <HeaderBar navigation={navigation} useInfo={userInfo}/>
+    </SafeAreaView>
     );
 };
 

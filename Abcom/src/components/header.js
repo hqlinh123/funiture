@@ -1,11 +1,11 @@
 //import liraries
 import React from 'react';
 import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, Image } from 'react-native';
-import { COLORS, FONTS } from '../constants'
+import { COLORS, FONTS, ROUTE } from '../constants'
 import { UserProfile, CartIcon, NotiIcon, Support, Back, PreviousBlack } from '../assets/icons'
 // create a component
-const HeaderBar = ({ isSignup, isBlackNav, onPress,bg,useInfo }) => {
-    
+
+const HeaderBar = ({ isSignup, isBlackNav, onPress,bg,useInfo, navigation }) => {
     if (isSignup) {
         return <TouchableOpacity onPress={onPress} style={styles.viewWelcome}>
             <Back width={20} height={20} />
@@ -28,9 +28,7 @@ const HeaderBar = ({ isSignup, isBlackNav, onPress,bg,useInfo }) => {
         const ggImage = useInfo.user.photo ? useInfo.user.photo : null
             return(
                 <Image source={{uri:ggImage, width: 40, height: 40}} style={{borderRadius: 20}}/>
-                
             )
-        
         
     }
 
@@ -42,8 +40,7 @@ const HeaderBar = ({ isSignup, isBlackNav, onPress,bg,useInfo }) => {
        
     }
     function renderData(useInfo){
-        console.log(useInfo)
-        if(useInfo.ggID == 2){
+        if(useInfo.ggID == 2 ){
             return(
                 renderImageGg(useInfo)
             )
@@ -53,7 +50,7 @@ const HeaderBar = ({ isSignup, isBlackNav, onPress,bg,useInfo }) => {
                 renderFacebookImage(useInfo)
             )
         }
-        return <></>
+        return <UserProfile width={40} height={40}/>
            
     }
     return (
@@ -61,11 +58,12 @@ const HeaderBar = ({ isSignup, isBlackNav, onPress,bg,useInfo }) => {
         <View style={styles.container}>
             <View style={styles.viewUser}>
                 <TouchableOpacity style={styles.userBtn}>
-                    {renderData(useInfo)}
+                    {useInfo && renderData(useInfo)}
                 </TouchableOpacity>
                 <View style={styles.viewWelcome}>
-                    <Text style={{ ...FONTS.h4 }}>Xin chao !</Text>
-                    <Text style={{ ...FONTS.body5 }}>{useInfo.user.name}</Text>
+                    <TouchableOpacity onPress={()=> navigation.navigate(ROUTE.SIGN_IN)}>
+                        <Text style={{ ...FONTS.h4 }}>{useInfo.user.name ? useInfo.user.name :"Đăng nhập"}</Text>
+                    </TouchableOpacity>
                 </View>
             </View>
             <View style={styles.viewIcon}>
@@ -97,6 +95,7 @@ const styles = StyleSheet.create({
     },
     viewWelcome: {
         left: 25,
+        top: 10
     },
     viewUser: { flexDirection: 'row' },
     userBtn: { left: 16 },

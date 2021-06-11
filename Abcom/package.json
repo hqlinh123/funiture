@@ -4,10 +4,10 @@
   "private": true,
   "scripts": {
     "android": "react-native run-android",
-    "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "ios": "react-native run-ios --simulator \"iPhone X\""
   },
   "dependencies": {
     "@invertase/react-native-apple-authentication": "^2.1.2",

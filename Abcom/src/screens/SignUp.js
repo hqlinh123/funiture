@@ -1,60 +1,20 @@
 //import liraries
-import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity, SafeAreaView, Alert } from 'react-native';
-import { COLORS, FONTS, IMAGES, ROUTE, SIZE, WEB_CLIENT_KEY } from '../constants'
-import { InputField, ButtonStyle, HeaderBar } from '../components'
-import { Logo, FaceBook, Google, Apple } from '../assets/icons'
-import { AccessToken, LoginManager, GraphRequest, GraphRequestManager } from 'react-native-fbsdk'
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { COLORS, FONTS, IMAGES, ROUTE, SIZE } from '../constants'
+import { InputField, ButtonStyle, HeaderBar, SocialAuth } from '../components'
+import { Logo} from '../assets/icons'
 import auth from '@react-native-firebase/auth';
-import {GoogleSignin, statusCodes} from '@react-native-google-signin/google-signin'
+
 // create a component
 const SignUp = ({navigation}) => {
     const [phone,setPhone] = useState('')
+    const [userInfo,setInfo] = useState({})
 
-    const getUserInfoFromToken = (token) => {
-        const profile = {
-            fields: {
-                string: 'id,name,first_name,last_name,picture'
-            }
-        }
-        const profileRequest = new GraphRequest('/me', { token, parameters: profile }, (error, result) => {
-            if (error) {
-                console.log('login has an error' + error)
-            } else {
-                console.log('login with name:' + result.name)
-                console.log(result)
-                setInfo(result)
-            }
-        }
-        )
-        new GraphRequestManager().addRequest(profileRequest).start()
-    }
-    const loginWithFaceBook = () => {
-        LoginManager.logInWithPermissions(['public_profile'])
-            .then((login) => {
-                if (login.isCancelled) {
-                    console.log('login is canceled')
-                } else {
-                    AccessToken.getCurrentAccessToken()
-                        .then((data) => {
-                            const accessToken = data.accessToken.toString()
-                            getUserInfoFromToken(accessToken)
-                        })
-                }
-            },
-                error => {
-                    console.log('login error ')
-                }
-            )
-
-    }
  function sendPhoneToVerify() {
     navigation.navigate(ROUTE.AUTH_OTP,{phone})
 }
-    const logoutWithFaceBook = () => {
-        LoginManager.logOut()
-        setInfo({})
-    }
+   
 
     function renderLoginView() {
        
@@ -85,17 +45,7 @@ const SignUp = ({navigation}) => {
                             </Text>
                         <View style={styles.viewAnother} >
                             <Text>hoặc sử dụng</Text>
-                            <View style={styles.extends}>
-                                <TouchableOpacity style={styles.btnExtends} onPress={loginWithFaceBook}>
-                                    <FaceBook width={30} height={30} />
-                                </TouchableOpacity>
-                                <TouchableOpacity style={styles.btnExtends} onPress={signIn}>
-                                    <Google width={30} height={30} />
-                                </TouchableOpacity>
-                                <TouchableOpacity style={styles.btnExtends}>
-                                    <Apple width={30} height={30} />
-                                </TouchableOpacity>
-                            </View>
+                            <SocialAuth navigation={navigation}/>
                         </View>
                         <View style={styles.viewSigup}>
                             <Text>Bạn đã có tài khoản?</Text>
@@ -109,53 +59,7 @@ const SignUp = ({navigation}) => {
         
         )
     }
-    useEffect(()=>{
-        configureGoogleSignIn()
-      
-    },[])
-
-   const configureGoogleSignIn = () => {
-        GoogleSignin.configure({
-          webClientId: WEB_CLIENT_KEY.webClientId,
-          offlineAccess: false,
-        });
-      }
-      const signIn = async () => {
-        try {
-          await GoogleSignin.hasPlayServices();
-          const userInfo = await GoogleSignin.signIn();
-          setInfo(userInfo.user)
-        } catch (error) {
-          switch (error.code) {
-            case statusCodes.SIGN_IN_CANCELLED:
-              // sign in was cancelled
-              console.log('cancelled');
-              break;
-            case statusCodes.IN_PROGRESS:
-              // operation (eg. sign in) already in progress
-              console.log('in progress');
-              break;
-            case statusCodes.PLAY_SERVICES_NOT_AVAILABLE:
-              // android only
-              console.log('play services not available or outdated');
-              break;
-            default:
-                console.log('Something went wrong', error.toString());
-              
-          }
-        }
-      };
-    
-     const signOut = async () => {
-        try {
-          await GoogleSignin.revokeAccess();
-          await GoogleSignin.signOut();
-             setInfo({})
-         
-        } catch (error) {
-          console.error(error);
-        }
-      };
+  
     return (
         <View style={styles.container}> 
             <Image source={IMAGES.signIn} style={styles.imgBg} />

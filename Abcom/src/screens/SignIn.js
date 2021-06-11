@@ -1,84 +1,35 @@
 //import liraries
-import React, { useState, useEffect } from 'react';
+import React,{useEffect} from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
-import { COLORS, FONTS, IMAGES, ROUTE, SIZE, WEB_CLIENT_KEY } from '../constants'
-import { InputField, ButtonStyle } from '../components'
-import { Logo, FaceBook, Google, Apple } from '../assets/icons'
-import { AccessToken, LoginManager, GraphRequest, GraphRequestManager } from 'react-native-fbsdk'
-import { appleAuth } from '@invertase/react-native-apple-authentication';
-import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin'
+import { COLORS, FONTS, IMAGES, ROUTE, SIZE} from '../constants'
+import { InputField, ButtonStyle, SocialAuth } from '../components'
+import { Logo } from '../assets/icons'
+import {GoogleSignin} from '@react-native-google-signin/google-signin'
+import { LoginManager} from 'react-native-fbsdk'
+
 // create a component
 const SignIn = ({ navigation }) => {
-    const [loggedIn, setloggedIn] = useState(false);
-    const [userInfo, setInfo] = useState({})
-
-    const getUserInfoFromToken = (token) => {
-        const profile = {
-            fields: {
-                string: 'id,name,first_name,last_name,picture'
-            }
+    useEffect(() => {
+        signOut()
+    }, [])
+   async function signOut(){
+        try {
+          await GoogleSignin.revokeAccess();
+          await GoogleSignin.signOut();
+          LoginManager.logOut();
+        } catch (error) {
+          console.error(error);
         }
-        const profileRequest = new GraphRequest('/me', { token, parameters: profile }, (error, result) => {
-            if (error) {
-                console.log('login has an error' + error)
-            } else {
-                if(result){
-                    navigation.navigate(ROUTE.HOME,{user:result,faceID: 1})
-                }
-                setInfo(result)
-            }
-        }
-        )
-        new GraphRequestManager().addRequest(profileRequest).start()
-    }
-    const signInWithFaceBook = () => {
-        LoginManager.logInWithPermissions(['public_profile'])
-            .then((login) => {
-                if (login.isCancelled) {
-                    console.log('login is canceled')
-                } else {
-                    AccessToken.getCurrentAccessToken()
-                        .then((data) => {
-                            const accessToken = data.accessToken.toString()
-                            getUserInfoFromToken(accessToken)
-                        })
-                }
-            },
-                error => {
-                    console.log('login error ')
-                }
-            )
-
-    }
-    function signInWithApple() {
-        const appleAuthRequestResponse = appleAuth.performRequest({
-            requestedOperation: appleAuth.Operation.LOGIN,
-            requestedScopes: [appleAuth.Scope.EMAIL, appleAuth.Scope.FULL_NAME],
-        });
-        console.log(appleAuthRequestResponse)
-        // get current authentication state for user
-        // /!\ This method must be tested on a real device. On the iOS simulator it always throws an error.
-        const credentialState = appleAuth.getCredentialStateForUser(appleAuthRequestResponse.user);
-
-        // use credentialState response to ensure the user is authenticated
-        if (credentialState === appleAuth.State.AUTHORIZED) {
-            // user is authenticated
-        }
-    }
-    const logoutWithFaceBook = () => {
-        LoginManager.logOut()
-        setInfo({})
-    }
+      };
+  
 
     function renderLoginView() {
-
         return (
             <View style={styles.viewLogin}>
                 <View style={styles.viewContent}>
                     <View style={styles.viewText}>
                         <View style={styles.viewWelcome}>
                             <Text style={{ ...FONTS.body2, color: COLORS.darkblue, top: 30, left: 20 }}>ĐĂNG NHẬP</Text>
-                            {<Text style={{ ...FONTS.h4, color: COLORS.grey, top: 30, left: 20 }}>{userInfo.name}</Text>}
                         </View>
                         <View style={styles.viewLogo}>
                             <Logo />
@@ -91,17 +42,7 @@ const SignIn = ({ navigation }) => {
                         <ButtonStyle label="Bạn quên mật khẩu?" backgroundColor="white" color={COLORS.secondary} />
                         <View style={styles.viewAnother} >
                             <Text>hoặc sử dụng</Text>
-                            <View style={styles.extends}>
-                                <TouchableOpacity style={styles.btnExtends} onPress={signInWithFaceBook}>
-                                    <FaceBook width={30} height={30} />
-                                </TouchableOpacity>
-                                <TouchableOpacity style={styles.btnExtends} onPress={signInWithGoogle}>
-                                    <Google width={30} height={30} />
-                                </TouchableOpacity>
-                                <TouchableOpacity style={styles.btnExtends} onPress={signInWithApple}>
-                                    <Apple width={30} height={30} />
-                                </TouchableOpacity>
-                            </View>
+                           <SocialAuth navigation={navigation}/>
                         </View>
                         <View style={styles.viewSigup}>
                             <Text>Chưa có tài khoản?</Text>
@@ -114,59 +55,7 @@ const SignIn = ({ navigation }) => {
             </View>
         )
     }
-    useEffect(() => {
-        configureGoogleSignIn()
-
-    }, [])
-
-    const configureGoogleSignIn = () => {
-        GoogleSignin.configure({
-            webClientId: WEB_CLIENT_KEY.webClientId,
-            offlineAccess: false,
-        });
-    }
-    const signInWithGoogle = async () => {
-        try {
-            let userInfor = {}
-            await GoogleSignin.hasPlayServices();
-            const userInfo = await GoogleSignin.signIn();
-            setInfo(userInfo.user)
-           
-           if(userInfo.idToken !== null){
-                navigation.navigate(ROUTE.HOME,{user: userInfo.user, ggID:2})
-           }
-            
-        } catch (error) {
-            switch (error.code) {
-                case statusCodes.SIGN_IN_CANCELLED:
-                    // sign in was cancelled
-                    console.log('cancelled');
-                    break;
-                case statusCodes.IN_PROGRESS:
-                    // operation (eg. sign in) already in progress
-                    console.log('in progress');
-                    break;
-                case statusCodes.PLAY_SERVICES_NOT_AVAILABLE:
-                    // android only
-                    console.log('play services not available or outdated');
-                    break;
-                default:
-                    console.log('Something went wrong', error.toString());
-
-            }
-        }
-    };
-
-    const signOut = async () => {
-        try {
-            await GoogleSignin.revokeAccess();
-            await GoogleSignin.signOut();
-            setInfo({})
-
-        } catch (error) {
-            console.error(error);
-        }
-    };
+    
     return (
         <View style={styles.container}>
 

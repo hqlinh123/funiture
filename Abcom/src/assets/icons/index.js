@@ -17,7 +17,7 @@ export {default as FindBlack} from './searchBlack.svg'
 export {default as Heart} from './heart.svg'
 export {default as HeartBlack} from './heartActive.svg'
 
-export {default as UserProfile} from './userProfile.svg'
+export {default as UserProfile} from './user.svg'
 export {default as Support} from './support.svg'
 
 export {default as Logo} from './logo.svg'
