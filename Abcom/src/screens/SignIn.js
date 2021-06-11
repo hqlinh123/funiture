@@ -5,10 +5,10 @@ import { COLORS, FONTS, IMAGES, ROUTE, SIZE, WEB_CLIENT_KEY } from '../constants
 import { InputField, ButtonStyle } from '../components'
 import { Logo, FaceBook, Google, Apple } from '../assets/icons'
 import { AccessToken, LoginManager, GraphRequest, GraphRequestManager } from 'react-native-fbsdk'
-import auth from '@react-native-firebase/auth';
-import {GoogleSignin, statusCodes} from '@react-native-google-signin/google-signin'
+import { appleAuth } from '@invertase/react-native-apple-authentication';
+import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin'
 // create a component
-const SignIn = ({navigation}) => {
+const SignIn = ({ navigation }) => {
     const [loggedIn, setloggedIn] = useState(false);
     const [userInfo, setInfo] = useState({})
 
@@ -22,15 +22,16 @@ const SignIn = ({navigation}) => {
             if (error) {
                 console.log('login has an error' + error)
             } else {
-                console.log('login with name:' + result.name)
-                console.log(result)
+                if(result){
+                    navigation.navigate(ROUTE.HOME,{user:result,faceID: 1})
+                }
                 setInfo(result)
             }
         }
         )
         new GraphRequestManager().addRequest(profileRequest).start()
     }
-    const loginWithFaceBook = () => {
+    const signInWithFaceBook = () => {
         LoginManager.logInWithPermissions(['public_profile'])
             .then((login) => {
                 if (login.isCancelled) {
@@ -49,20 +50,35 @@ const SignIn = ({navigation}) => {
             )
 
     }
+    function signInWithApple() {
+        const appleAuthRequestResponse = appleAuth.performRequest({
+            requestedOperation: appleAuth.Operation.LOGIN,
+            requestedScopes: [appleAuth.Scope.EMAIL, appleAuth.Scope.FULL_NAME],
+        });
+        console.log(appleAuthRequestResponse)
+        // get current authentication state for user
+        // /!\ This method must be tested on a real device. On the iOS simulator it always throws an error.
+        const credentialState = appleAuth.getCredentialStateForUser(appleAuthRequestResponse.user);
 
+        // use credentialState response to ensure the user is authenticated
+        if (credentialState === appleAuth.State.AUTHORIZED) {
+            // user is authenticated
+        }
+    }
     const logoutWithFaceBook = () => {
         LoginManager.logOut()
         setInfo({})
     }
 
     function renderLoginView() {
+
         return (
             <View style={styles.viewLogin}>
                 <View style={styles.viewContent}>
                     <View style={styles.viewText}>
                         <View style={styles.viewWelcome}>
                             <Text style={{ ...FONTS.body2, color: COLORS.darkblue, top: 30, left: 20 }}>ĐĂNG NHẬP</Text>
-                            {<Text style={{ ...FONTS.h4, color: COLORS.grey, top: 30, left: 20 }}>Chào {userInfo.name}  !</Text>}
+                            {<Text style={{ ...FONTS.h4, color: COLORS.grey, top: 30, left: 20 }}>{userInfo.name}</Text>}
                         </View>
                         <View style={styles.viewLogo}>
                             <Logo />
@@ -76,20 +92,20 @@ const SignIn = ({navigation}) => {
                         <View style={styles.viewAnother} >
                             <Text>hoặc sử dụng</Text>
                             <View style={styles.extends}>
-                                <TouchableOpacity style={styles.btnExtends} onPress={loginWithFaceBook}>
+                                <TouchableOpacity style={styles.btnExtends} onPress={signInWithFaceBook}>
                                     <FaceBook width={30} height={30} />
                                 </TouchableOpacity>
-                                <TouchableOpacity style={styles.btnExtends} onPress={signIn}>
+                                <TouchableOpacity style={styles.btnExtends} onPress={signInWithGoogle}>
                                     <Google width={30} height={30} />
                                 </TouchableOpacity>
-                                <TouchableOpacity style={styles.btnExtends}>
+                                <TouchableOpacity style={styles.btnExtends} onPress={signInWithApple}>
                                     <Apple width={30} height={30} />
                                 </TouchableOpacity>
                             </View>
                         </View>
                         <View style={styles.viewSigup}>
                             <Text>Chưa có tài khoản?</Text>
-                            <TouchableOpacity style={styles.btnSignup} onPress={() => props.navigation.navigate(ROUTE.SIGN_UP)}>
+                            <TouchableOpacity style={styles.btnSignup} onPress={() => navigation.navigate(ROUTE.SIGN_UP)}>
                                 <Text style={{ ...FONTS.body5 }}>Đăng ký ngay</Text>
                             </TouchableOpacity>
                         </View>
@@ -98,56 +114,59 @@ const SignIn = ({navigation}) => {
             </View>
         )
     }
-    useEffect(()=>{
+    useEffect(() => {
         configureGoogleSignIn()
-      
-    },[])
 
-   const configureGoogleSignIn = () => {
+    }, [])
+
+    const configureGoogleSignIn = () => {
         GoogleSignin.configure({
-          webClientId: WEB_CLIENT_KEY.webClientId,
-          offlineAccess: false,
+            webClientId: WEB_CLIENT_KEY.webClientId,
+            offlineAccess: false,
         });
-      }
-      const signIn = async () => {
+    }
+    const signInWithGoogle = async () => {
         try {
-          await GoogleSignin.hasPlayServices();
-          const userInfo = await GoogleSignin.signIn();
-          setInfo(userInfo.user)
+            let userInfor = {}
+            await GoogleSignin.hasPlayServices();
+            const userInfo = await GoogleSignin.signIn();
+            setInfo(userInfo.user)
+           
+           if(userInfo.idToken !== null){
+                navigation.navigate(ROUTE.HOME,{user: userInfo.user, ggID:2})
+           }
+            
         } catch (error) {
-          switch (error.code) {
-            case statusCodes.SIGN_IN_CANCELLED:
-              // sign in was cancelled
-              console.log('cancelled');
-              break;
-            case statusCodes.IN_PROGRESS:
-              // operation (eg. sign in) already in progress
-              console.log('in progress');
-              break;
-            case statusCodes.PLAY_SERVICES_NOT_AVAILABLE:
-              // android only
-              console.log('play services not available or outdated');
-              break;
-            default:
-                console.log('Something went wrong', error.toString());
-              
-          }
+            switch (error.code) {
+                case statusCodes.SIGN_IN_CANCELLED:
+                    // sign in was cancelled
+                    console.log('cancelled');
+                    break;
+                case statusCodes.IN_PROGRESS:
+                    // operation (eg. sign in) already in progress
+                    console.log('in progress');
+                    break;
+                case statusCodes.PLAY_SERVICES_NOT_AVAILABLE:
+                    // android only
+                    console.log('play services not available or outdated');
+                    break;
+                default:
+                    console.log('Something went wrong', error.toString());
+
+            }
         }
-      };
-    
-     const signOut = async () => {
+    };
+
+    const signOut = async () => {
         try {
-          await GoogleSignin.revokeAccess();
-          await GoogleSignin.signOut();
-          auth()
-            .signOut()
-            .then(() => alert('Your are signed out!'));
-          setloggedIn(false);
-          // setuserInfo([]);
+            await GoogleSignin.revokeAccess();
+            await GoogleSignin.signOut();
+            setInfo({})
+
         } catch (error) {
-          console.error(error);
+            console.error(error);
         }
-      };
+    };
     return (
         <View style={styles.container}>
 

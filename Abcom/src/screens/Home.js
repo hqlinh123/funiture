@@ -1,13 +1,17 @@
 //import liraries
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, SafeAreaView } from 'react-native';
+import Tabs from '../navigations/tabs'
 import {HeaderBar} from '../components'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { ROUTE } from '../constants';
+import {Account} from '../screens'
+const Tab = createBottomTabNavigator();
 // create a component
-const Home = () => {
+
+const Home = ({route, navigation}) => {
     return (
-        <View style={styles.container}>
-            <HeaderBar />
-        </View>
+       <></>
     );
 };
 

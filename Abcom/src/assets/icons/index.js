@@ -25,3 +25,6 @@ export {default as FaceBook} from './facebook.svg'
 export {default as Google} from './google.svg'
 export {default as Apple} from './apple.svg'
 
+export {default as Back} from './previous.svg'
+export {default as PreviousBlack} from './previousBlack.svg'
+

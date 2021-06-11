@@ -1,47 +1,107 @@
 //import liraries
 import React from 'react';
 import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, Image } from 'react-native';
-import { FONTS } from '../constants'
-import {UserProfile, CartIcon, NotiIcon, Support} from '../assets/icons'
+import { COLORS, FONTS } from '../constants'
+import { UserProfile, CartIcon, NotiIcon, Support, Back, PreviousBlack } from '../assets/icons'
 // create a component
-const HeaderBar = () => {
-    return (
-        <SafeAreaView>
-            <View style={styles.container}>
-                <View style={styles.viewUser}>
-                    <TouchableOpacity style={styles.userBtn}>
-                        <UserProfile width={40} height={40} />
-                    </TouchableOpacity>
-                    <View style={styles.viewWelcome}>
-                        <Text style={{...FONTS.h4}}>Xin chao !</Text>
-                        <Text style={{...FONTS.body5}}>Hoang Linh</Text>
-                    </View>
-                </View>
-                <View style={styles.viewIcon}>
-                    <TouchableOpacity style={styles.cartBtn}>
-                        <CartIcon width={24} height={24}/>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.notiBtn}>
-                        <NotiIcon width={24} height={24}/>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.support}>
-                        <Support width={30} height={30}/>
-                    </TouchableOpacity>
+const HeaderBar = ({ isSignup, isBlackNav, onPress,bg,useInfo }) => {
+    
+    if (isSignup) {
+        return <TouchableOpacity onPress={onPress} style={styles.viewWelcome}>
+            <Back width={20} height={20} />
+        </TouchableOpacity>
+    }
+
+    if (isBlackNav) {
+        return (
+            <View style={styles.viewAuth}>
+                <TouchableOpacity onPress={onPress} style={styles.backAuth}>
+                    <Back width={20} height={20} />
+                </TouchableOpacity>
+                <View style={styles.navTitle}>
+                    <Text style={{...FONTS.body2, color:COLORS.primary}}>Xác thực số điện thoại </Text>
                 </View>
             </View>
-        </SafeAreaView>
-    );
+        )
+    }
+    function renderImageGg(useInfo){
+        const ggImage = useInfo.user.photo ? useInfo.user.photo : null
+            return(
+                <Image source={{uri:ggImage, width: 40, height: 40}} style={{borderRadius: 20}}/>
+                
+            )
+        
+        
+    }
+
+    function renderFacebookImage(useInfo){
+        const faceImage = useInfo.user.picture.data.url ? useInfo.user.picture.data.url : null
+            return(
+                <Image source={{uri:faceImage, width: 40, height: 40}} style={{borderRadius: 20}}/>
+            )
+       
+    }
+    function renderData(useInfo){
+        console.log(useInfo)
+        if(useInfo.ggID == 2){
+            return(
+                renderImageGg(useInfo)
+            )
+        }
+        if(useInfo.faceID == 1){
+            return(
+                renderFacebookImage(useInfo)
+            )
+        }
+        return <></>
+           
+    }
+    return (
+
+        <View style={styles.container}>
+            <View style={styles.viewUser}>
+                <TouchableOpacity style={styles.userBtn}>
+                    {renderData(useInfo)}
+                </TouchableOpacity>
+                <View style={styles.viewWelcome}>
+                    <Text style={{ ...FONTS.h4 }}>Xin chao !</Text>
+                    <Text style={{ ...FONTS.body5 }}>{useInfo.user.name}</Text>
+                </View>
+            </View>
+            <View style={styles.viewIcon}>
+                <TouchableOpacity style={styles.cartBtn}>
+                    <CartIcon width={24} height={24} />
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.notiBtn}>
+                    <NotiIcon width={24} height={24} />
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.support}>
+                    <Support width={30} height={30} />
+                </TouchableOpacity>
+            </View>
+        </View>
+    )
 };
 
 // define your styles
 const styles = StyleSheet.create({
-    viewWelcome:{
+    backAuth:{position:'absolute', left:25},
+    navTitle:{},
+    viewAuth:{
+        flexDirection:'row',
+        justifyContent:'center',
+        alignItems:'center', 
+        backgroundColor:COLORS.blue,
+        top:-10
+     
+    },
+    viewWelcome: {
         left: 25,
     },
-    viewUser:{flexDirection: 'row'},
-    userBtn: {left: 16},
-    cartBtn: {right: 15},
-    notiBtn: {right: 10},
+    viewUser: { flexDirection: 'row' },
+    userBtn: { left: 16 },
+    cartBtn: { right: 15 },
+    notiBtn: { right: 10 },
     container: {
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -53,7 +113,7 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderColor: '#ffff'
     },
-    support:{
+    support: {
         top: -5
     },
     cartIcon: {

@@ -5,6 +5,9 @@ import Account from './Account'
 import Setting from './Setting'
 import SignIn from './SignIn'
 import SignUp from './SignUp'
+import AuthOTP from './OTPAuth'
+import AppleSignIn from './AppleSignIn'
+
 export {
     Home,
     Search,
@@ -12,5 +15,7 @@ export {
     Account,
     Setting,
     SignIn,
-    SignUp
+    SignUp,
+    AuthOTP,
+    AppleSignIn
 }
