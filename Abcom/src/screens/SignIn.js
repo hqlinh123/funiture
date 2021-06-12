@@ -4,25 +4,9 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { COLORS, FONTS, IMAGES, ROUTE, SIZE} from '../constants'
 import { InputField, ButtonStyle, SocialAuth } from '../components'
 import { Logo } from '../assets/icons'
-import {GoogleSignin} from '@react-native-google-signin/google-signin'
-import { LoginManager} from 'react-native-fbsdk'
 
 // create a component
 const SignIn = ({ navigation }) => {
-    useEffect(() => {
-        signOut()
-    }, [])
-   async function signOut(){
-        try {
-          await GoogleSignin.revokeAccess();
-          await GoogleSignin.signOut();
-          LoginManager.logOut();
-        } catch (error) {
-          console.error(error);
-        }
-      };
-  
-
     function renderLoginView() {
         return (
             <View style={styles.viewLogin}>

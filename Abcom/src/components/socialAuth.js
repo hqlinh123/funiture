@@ -5,12 +5,14 @@ import {FaceBook, Google, Apple } from '../assets/icons'
 import { AccessToken, LoginManager, GraphRequest, GraphRequestManager } from 'react-native-fbsdk'
 import {GoogleSignin, statusCodes} from '@react-native-google-signin/google-signin'
 import {WEB_CLIENT_KEY, ROUTE} from '../constants'
+import {useDispatch} from 'react-redux'
+import {saveFacebookProfile, saveGoogleProfile} from '../redux/actions'
 
 // create a component
 const SocialAuth = ({navigation}) => {
-    const [userInfo,setInfo] = useState({})
-
+    const dispatch = useDispatch()
     const getUserInfoFromToken = (token) => {
+    
         const profile = {
             fields: {
                 string: 'id,name,first_name,last_name,picture'
@@ -20,12 +22,8 @@ const SocialAuth = ({navigation}) => {
             if (error) {
                 console.log('login has an error' + error)
             } else {
-                console.log('login with name:' + result.name)
-                if(result){
-                    navigation.navigate(ROUTE.HOME,{user:result,faceID: 1})
-                }
-                setInfo(result)
-                
+                    dispatch(saveFacebookProfile(result))
+                    navigation.navigate(ROUTE.HOME)
             }
         }
         )
@@ -36,7 +34,7 @@ const SocialAuth = ({navigation}) => {
         LoginManager.logInWithPermissions(['public_profile'])
             .then((login) => {
                 if (login.isCancelled) {
-                    console.log('login is canceled')
+                    console.log('login facebook is canceled')
                 } else {
                     AccessToken.getCurrentAccessToken()
                         .then((data) => {
@@ -67,15 +65,15 @@ const SocialAuth = ({navigation}) => {
         try {
           await GoogleSignin.hasPlayServices();
           const userInfo = await GoogleSignin.signIn();
-          setInfo(userInfo.user)
            if(userInfo.idToken !== null){
-                navigation.navigate(ROUTE.HOME,{user: userInfo.user, ggID:2})
+               dispatch(saveGoogleProfile(userInfo.user))
+                navigation.navigate(ROUTE.HOME)
            }
         } catch (error) {
           switch (error.code) {
             case statusCodes.SIGN_IN_CANCELLED:
               // sign in was cancelled
-              console.log('cancelled');
+              console.log('login google is cancelled');
               break;
             case statusCodes.IN_PROGRESS:
               // operation (eg. sign in) already in progress

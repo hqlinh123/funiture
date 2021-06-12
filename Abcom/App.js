@@ -23,7 +23,6 @@ const App = () => {
         <Stack.Screen name={ROUTE.SIGN_IN} component={SignIn}/>
         <Stack.Screen name={ROUTE.SIGN_UP} component={SignUp}/>
         <Stack.Screen name={ROUTE.AUTH_OTP} component={AuthOTP}/>
-        
       </Stack.Navigator>
     </NavigationContainer>
   );

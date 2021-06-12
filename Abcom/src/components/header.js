@@ -5,64 +5,20 @@ import { COLORS, FONTS, ROUTE } from '../constants'
 import { UserProfile, CartIcon, NotiIcon, Support, Back, PreviousBlack } from '../assets/icons'
 // create a component
 
-const HeaderBar = ({ isSignup, isBlackNav, onPress,bg,useInfo, navigation }) => {
-    if (isSignup) {
-        return <TouchableOpacity onPress={onPress} style={styles.viewWelcome}>
-            <Back width={20} height={20} />
-        </TouchableOpacity>
-    }
+const HeaderBar = ({userTitle, userImage, userDes, onPress}) => {
 
-    if (isBlackNav) {
-        return (
-            <View style={styles.viewAuth}>
-                <TouchableOpacity onPress={onPress} style={styles.backAuth}>
-                    <Back width={20} height={20} />
-                </TouchableOpacity>
-                <View style={styles.navTitle}>
-                    <Text style={{...FONTS.body2, color:COLORS.primary}}>Xác thực số điện thoại </Text>
-                </View>
-            </View>
-        )
-    }
-    function renderImageGg(useInfo){
-        const ggImage = useInfo.user.photo ? useInfo.user.photo : null
-            return(
-                <Image source={{uri:ggImage, width: 40, height: 40}} style={{borderRadius: 20}}/>
-            )
-        
-    }
-
-    function renderFacebookImage(useInfo){
-        const faceImage = useInfo.user.picture.data.url ? useInfo.user.picture.data.url : null
-            return(
-                <Image source={{uri:faceImage, width: 40, height: 40}} style={{borderRadius: 20}}/>
-            )
-       
-    }
-    function renderData(useInfo){
-        if(useInfo.ggID == 2 ){
-            return(
-                renderImageGg(useInfo)
-            )
-        }
-        if(useInfo.faceID == 1){
-            return(
-                renderFacebookImage(useInfo)
-            )
-        }
-        return <UserProfile width={40} height={40}/>
-           
-    }
     return (
-
         <View style={styles.container}>
             <View style={styles.viewUser}>
                 <TouchableOpacity style={styles.userBtn}>
-                    {useInfo && renderData(useInfo)}
+                    {/* {useInfo && renderData(useInfo)} */}
+                    <Image source={{ uri: userImage, width: 40, height: 40 }} style={{ borderRadius: 20 }} />
                 </TouchableOpacity>
                 <View style={styles.viewWelcome}>
-                    <TouchableOpacity onPress={()=> navigation.navigate(ROUTE.SIGN_IN)}>
-                        <Text style={{ ...FONTS.h4 }}>{useInfo.user.name ? useInfo.user.name :"Đăng nhập"}</Text>
+                    {/* {renderButton(useInfo)} */}
+                    <TouchableOpacity onPress={onPress}>
+                        <Text>{userDes}</Text>
+                        <Text style={{ ...FONTS.h4 }}>{userTitle}</Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -83,19 +39,18 @@ const HeaderBar = ({ isSignup, isBlackNav, onPress,bg,useInfo, navigation }) => 
 
 // define your styles
 const styles = StyleSheet.create({
-    backAuth:{position:'absolute', left:25},
-    navTitle:{},
-    viewAuth:{
-        flexDirection:'row',
-        justifyContent:'center',
-        alignItems:'center', 
-        backgroundColor:COLORS.blue,
-        top:-10
-     
+    backAuth: { position: 'absolute', left: 25 },
+    navTitle: {},
+    viewAuth: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: COLORS.blue,
+        top: -10
+
     },
     viewWelcome: {
         left: 25,
-        top: 10
     },
     viewUser: { flexDirection: 'row' },
     userBtn: { left: 16 },
