@@ -13,14 +13,15 @@ const SignIn = ({ navigation }) => {
                 <View style={styles.viewContent}>
                     <View style={styles.viewText}>
                         <View style={styles.viewWelcome}>
-                            <Text style={{ ...FONTS.body2, color: COLORS.darkblue, top: 30, left: 20 }}>ĐĂNG NHẬP</Text>
+                            <Text style={{ ...FONTS.body2, color: COLORS.darkblue, left: 20 }}>Đăng nhập</Text>
+                            <Text style={{ ...FONTS.body5, color: COLORS.grey, left: 20 }}>Đăng nhập để nhận nhiều ưu đãi</Text>
                         </View>
                         <View style={styles.viewLogo}>
                             <Image source={IMAGES.logoApp} style={{width: 60, height: 60}}/>
                         </View>
                     </View>
                     <View style={styles.viewInput}>
-                        <InputField placeholder="Nhập SĐT của bạn" />
+                        <InputField placeholder="Nhập SĐT của bạn" keyboardType='phone-pad'/>
                         <InputField placeholder="Nhập mật khẩu của bạn" />
                         <ButtonStyle 
                             label="Đăng nhập" 
@@ -37,7 +38,7 @@ const SignIn = ({ navigation }) => {
                         <View style={styles.viewSigup}>
                             <Text>Chưa có tài khoản?</Text>
                             <TouchableOpacity style={styles.btnSignup} onPress={() => navigation.navigate(ROUTE.SIGN_UP)}>
-                                <Text style={{ ...FONTS.body5 }}>Đăng ký ngay</Text>
+                                <Text style={{ ...FONTS.body5, color: COLORS.blue, textDecorationLine:'underline' }}>Đăng ký ngay</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -75,10 +76,9 @@ const styles = StyleSheet.create({
     },
     viewContent: {
         width: SIZE.width * 0.9,
-        height: SIZE.height * 0.5,
         borderRadius: 20,
         backgroundColor: 'white',
-
+        paddingVertical: 30,
     },
     viewText: {
         flexDirection: 'row'
@@ -89,12 +89,12 @@ const styles = StyleSheet.create({
     viewLogo: {
         position: 'absolute',
         right: 20,
-        top: 10
     },
     viewInput: {
-        top: 45,
+        marginTop: 30,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        
     },
     btnLogin: {
         bottom: 0,

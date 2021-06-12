@@ -576,10 +576,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Abcom/Abcom.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = XU48A9V5H2;
+				DEVELOPMENT_TEAM = M9RXFTNQ3L;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Abcom/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -595,9 +595,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = vn.com.hp.release;
+				PRODUCT_BUNDLE_IDENTIFIER = vn.com.Abcom.debug;
 				PRODUCT_NAME = Abcom;
-				PROVISIONING_PROFILE_SPECIFIER = "HP-Inhouse";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -611,10 +611,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Abcom/Abcom.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = XU48A9V5H2;
+				DEVELOPMENT_TEAM = M9RXFTNQ3L;
 				INFOPLIST_FILE = Abcom/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -629,9 +629,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = vn.com.hp.release;
+				PRODUCT_BUNDLE_IDENTIFIER = vn.com.Abcom.debug;
 				PRODUCT_NAME = Abcom;
-				PROVISIONING_PROFILE_SPECIFIER = "HP-Inhouse";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};

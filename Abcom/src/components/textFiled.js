@@ -3,10 +3,10 @@ import { View, StyleSheet, TextInput, TouchableOpacity, Image } from 'react-nati
 import { SIZE } from '../constants';
 
 // create a component
-const InputField = ({placeholder,onChange}) => {
+const InputField = ({placeholder,onChange, keyboardType}) => {
     return (
         <View style={styles.container}>
-            <TextInput style={styles.txtField} placeholder={placeholder} onChangeText={onChange}/>
+            <TextInput keyboardType = {keyboardType} style={styles.txtField} placeholder={placeholder} onChangeText={onChange}/>
             <TouchableOpacity style={styles.searchBtn}>
             </TouchableOpacity>
         </View>

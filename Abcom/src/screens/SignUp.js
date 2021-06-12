@@ -14,7 +14,6 @@ const SignUp = ({navigation}) => {
  function sendPhoneToVerify() {
     navigation.navigate(ROUTE.AUTH_OTP,{phone})
 }
-   
 
     function renderLoginView() {
        
@@ -24,11 +23,11 @@ const SignUp = ({navigation}) => {
                 <View style={styles.viewContent}>
                     <View style={styles.viewText}>
                         <View style={styles.viewWelcome}>
-                            <Text style={{ ...FONTS.body2, color: COLORS.darkblue, top: 30, left: 20 }}>Đăng ký</Text>
-                            {<Text style={{ ...FONTS.h4, color: COLORS.grey, top: 30, left: 20 }}>Tạo tài khoản Javaly ngay</Text>}
+                            <Text style={{ ...FONTS.body2, color: COLORS.darkblue, left: 20 }}>Đăng ký</Text>
+                            {<Text style={{ ...FONTS.h4, color: COLORS.grey,left: 20 }}>Tạo tài khoản Javaly ngay</Text>}
                         </View>
                         <View style={styles.viewLogo}>
-                            <Logo />
+                            <Image source= {IMAGES.logoApp} style={{width: 60, height: 60}}/>
                         </View>
                     </View>
                     <View style={styles.viewInput}>
@@ -50,7 +49,7 @@ const SignUp = ({navigation}) => {
                         <View style={styles.viewSigup}>
                             <Text>Bạn đã có tài khoản?</Text>
                             <TouchableOpacity style={styles.btnSignup} onPress={() => navigation.goBack()}>
-                                <Text style={{ ...FONTS.body5 }}>Đăng nhập</Text>
+                                <Text style={{ ...FONTS.body5, color: COLORS.blue, textDecorationLine:'underline'}}>Đăng nhập</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -92,12 +91,9 @@ const styles = StyleSheet.create({
     },
     viewContent: {
         width: SIZE.width * 0.9,
-        height: SIZE.height * 0.5,
         borderRadius: 20,
         backgroundColor: 'white',
-        padding:0,
-        margin:0
-
+        paddingVertical:50,
     },
     viewText: {
         flexDirection: 'row'
@@ -108,10 +104,8 @@ const styles = StyleSheet.create({
     viewLogo: {
         position: 'absolute',
         right: 10,
-        top: 20
     },
     viewInput: {
-        top: 45,
         justifyContent: 'center',
         alignItems: 'center'
     },
@@ -129,7 +123,7 @@ const styles = StyleSheet.create({
     },
     viewSigup: {
         flexDirection: 'row',
-        top: 5
+        top: 20
     },
     btnExtends: {
         width: 40,
