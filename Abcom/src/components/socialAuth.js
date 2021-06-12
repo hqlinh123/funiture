@@ -23,7 +23,7 @@ const SocialAuth = ({navigation}) => {
                 console.log('login has an error' + error)
             } else {
                     dispatch(saveFacebookProfile(result))
-                    navigation.navigate(ROUTE.HOME)
+                    navigation.navigate(ROUTE.ROOT_STACK, {screen:ROUTE.HOME})
             }
         }
         )
@@ -67,7 +67,7 @@ const SocialAuth = ({navigation}) => {
           const userInfo = await GoogleSignin.signIn();
            if(userInfo.idToken !== null){
                dispatch(saveGoogleProfile(userInfo.user))
-                navigation.navigate(ROUTE.HOME)
+               navigation.navigate(ROUTE.ROOT_STACK, {screen:ROUTE.HOME})
            }
         } catch (error) {
           switch (error.code) {

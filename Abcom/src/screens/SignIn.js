@@ -16,13 +16,19 @@ const SignIn = ({ navigation }) => {
                             <Text style={{ ...FONTS.body2, color: COLORS.darkblue, top: 30, left: 20 }}>ĐĂNG NHẬP</Text>
                         </View>
                         <View style={styles.viewLogo}>
-                            <Logo />
+                            <Image source={IMAGES.logoApp} style={{width: 60, height: 60}}/>
                         </View>
                     </View>
                     <View style={styles.viewInput}>
                         <InputField placeholder="Nhập SĐT của bạn" />
                         <InputField placeholder="Nhập mật khẩu của bạn" />
-                        <ButtonStyle label="Đăng nhập" backgroundColor="red" color={COLORS.primary} disabled={false} onPress={() => console.log('fsdfsdfsdfsdfsd')} />
+                        <ButtonStyle 
+                            label="Đăng nhập" 
+                            backgroundColor="red" 
+                            color={COLORS.primary} 
+                            disabled={false} 
+                            onPress={() => navigation.navigate(ROUTE.ROOT_STACK, {screen:ROUTE.HOME})} 
+                        />
                         <ButtonStyle label="Bạn quên mật khẩu?" backgroundColor="white" color={COLORS.secondary} />
                         <View style={styles.viewAnother} >
                             <Text>hoặc sử dụng</Text>
@@ -82,8 +88,8 @@ const styles = StyleSheet.create({
     },
     viewLogo: {
         position: 'absolute',
-        right: 10,
-        top: 20
+        right: 20,
+        top: 10
     },
     viewInput: {
         top: 45,
