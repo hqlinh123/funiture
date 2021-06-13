@@ -17,7 +17,8 @@ export const SIZE = {
     base: 8,
     font: 14, 
     padding: 10,
-    radius: 30,
+    radius: 20,
+    imageW: 40,
     padding2: 12,
     // app font size 
     largeTitle : 50,
@@ -51,6 +52,23 @@ export const FONTS = {
     
 }
 
-const appTheme = {COLORS, SIZE, FONTS}
+export const TEXTS = {
+    titleLogin:"Đăng nhập",
+    subTitleLogin:"Đăng nhập để nhận nhiều ưu đãi hơn",
+    titleSignup:"Đăng ký",
+    subTitleSignup:"Tạo mới tài khoản Abcom ngay tại đây nhé !",
+    txtForgotPassword:"Bạn quên mật khẩu?",
+    txtUsage:"hoặc sử dụng",
+    txtDontAccount:"Chưa có tài khoản?",
+    txtHaveAccount:"Bạn đã có tài khoản?",
+    txtRegisterNow:"Đăng ký ngay",
+    txtPolicyUsage:"Bằng việc đăng ký,bạn đã đồng ý với",
+    txtBtnPolicy:"Điều khoản sử dụng",
+    txtForMe:"của ABCom",
+    passwordSignIn:"Nhập mật khẩu của bạn",
+    passwordSignUp:"Tạo một mật khẩu ít nhất 5 ký tự"
+}
+
+const appTheme = {COLORS, SIZE, FONTS,TEXTS}
 
 export default appTheme

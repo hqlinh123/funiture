@@ -20,7 +20,6 @@ const Account = ({ navigation }) => {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <Text>1</Text>
-
       </View>
     )
   }
@@ -36,8 +35,6 @@ const Account = ({ navigation }) => {
       <HeaderBar isAccount={true} useInfo={{ user: { name: "Đăng nhập" } }} />
     </SafeAreaView>
   )
-
-
 }
 
 export default Account

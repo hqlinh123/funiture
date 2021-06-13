@@ -1,27 +1,37 @@
 //import liraries
 import React from 'react';
 import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, Image } from 'react-native';
-import { COLORS, FONTS, ROUTE } from '../constants'
+import { COLORS, FONTS, ROUTE,SIZE } from '../constants'
 import { UserProfile, CartIcon, NotiIcon, Support, Back, PreviousBlack } from '../assets/icons'
 // create a component
 
-const HeaderBar = ({userTitle, userImage, userDes, onPress}) => {
+const HeaderBar = ({ userTitle, userImage, isSignup, userDes, navigation, onPress,backSignIn }) => {
 
     return (
         <View style={styles.container}>
             <View style={styles.viewUser}>
                 <TouchableOpacity style={styles.userBtn}>
-                    {/* {useInfo && renderData(useInfo)} */}
-                    <Image source={{ uri: userImage, width: 40, height: 40 }} style={{ borderRadius: 20 }} />
+                    <Image source={{ uri: userImage, width: SIZE.imageW, height: SIZE.imageW }} style={{ borderRadius: SIZE.radius }} />
                 </TouchableOpacity>
                 <View style={styles.viewWelcome}>
-                    {/* {renderButton(useInfo)} */}
                     <TouchableOpacity onPress={onPress}>
                         <Text>{userDes}</Text>
                         <Text style={{ ...FONTS.h4 }}>{userTitle}</Text>
                     </TouchableOpacity>
                 </View>
             </View>
+            {renderNavIcon(isSignup)}
+        </View>
+    )
+    function renderNavIcon(isSignup) {
+        if (isSignup) {
+            return (
+                <TouchableOpacity onPress={backSignIn}>
+                    <Back width={20} height={20} />
+                </TouchableOpacity>
+            )
+        }
+        return (
             <View style={styles.viewIcon}>
                 <TouchableOpacity style={styles.cartBtn}>
                     <CartIcon width={24} height={24} />
@@ -33,8 +43,8 @@ const HeaderBar = ({userTitle, userImage, userDes, onPress}) => {
                     <Support width={30} height={30} />
                 </TouchableOpacity>
             </View>
-        </View>
-    )
+        )
+    }
 };
 
 // define your styles

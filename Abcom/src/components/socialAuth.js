@@ -12,7 +12,6 @@ import {saveFacebookProfile, saveGoogleProfile} from '../redux/actions'
 const SocialAuth = ({navigation}) => {
     const dispatch = useDispatch()
     const getUserInfoFromToken = (token) => {
-    
         const profile = {
             fields: {
                 string: 'id,name,first_name,last_name,picture'
@@ -85,7 +84,6 @@ const SocialAuth = ({navigation}) => {
               break;
             default:
                 console.log('Something went wrong', error.toString());
-              
           }
         }
       };
