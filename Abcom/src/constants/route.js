@@ -7,7 +7,8 @@ const ROUTE = {
     SIGN_IN: 'SignIn',
     SIGN_UP: 'SignUp',
     AUTH_OTP:'AuthOTP',
-    ROOT_STACK:'RootStack'
+    ROOT_STACK:'RootStack',
+    USER_PROFILE:'Profile'
 }
 
 export default ROUTE

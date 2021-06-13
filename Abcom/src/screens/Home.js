@@ -8,7 +8,6 @@ import { ROUTE, IMAGES } from '../constants';
 // create a component
 
 const Home = ({ navigation }) => {
-    
     const dispatch = useDispatch()
     const faceInfo = useSelector((state) => state.socialAuth.getFaceInfo)
     const googleInfo = useSelector((state) => state.socialAuth.getGoogleInfo)
@@ -41,6 +40,7 @@ const Home = ({ navigation }) => {
     }
 
     if (Object.keys(googleInfo).length > 0) {
+        console.log(googleInfo)
         return (
             <>
                 <SafeAreaView>
@@ -58,6 +58,7 @@ const Home = ({ navigation }) => {
 
         );
     }
+
     return (
         <SafeAreaView>
             {
@@ -69,7 +70,6 @@ const Home = ({ navigation }) => {
                 />
             }
         </SafeAreaView>
-
     );
 };
 

@@ -7,6 +7,7 @@ import SignIn from './SignIn'
 import SignUp from './SignUp'
 import AuthOTP from './OTPAuth'
 import AppleSignIn from './AppleSignIn'
+import Profile from './UserProfile'
 
 export {
     Home,
@@ -17,5 +18,6 @@ export {
     SignIn,
     SignUp,
     AuthOTP,
-    AppleSignIn
+    AppleSignIn,
+    Profile
 }

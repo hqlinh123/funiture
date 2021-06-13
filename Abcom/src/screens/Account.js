@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { View, Text, SafeAreaView } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 import { getFacebookProfile, getGoogleProfile } from '../redux/actions'
-import { HeaderBar } from '../components'
+import { HeaderBar, GooleAccount } from '../components'
 
 const Account = ({ navigation }) => {
   const dispatch = useDispatch()
@@ -25,9 +25,12 @@ const Account = ({ navigation }) => {
   }
   if (Object.keys(ggInfo).length > 0) {
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>2</Text>
-      </View>
+      <>
+        <SafeAreaView>
+          <HeaderBar />
+        </SafeAreaView>
+        <GooleAccount navigation={navigation} />
+      </>
     )
   }
   return (

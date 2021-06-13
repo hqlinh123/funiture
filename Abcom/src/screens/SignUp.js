@@ -8,7 +8,7 @@ const SignUp = ({ navigation }) => {
     const [phone, setPhone] = useState('')
     
     function sendPhoneToVerify() {
-        navigation.navigate(ROUTE.AUTH_OTP, { phone })
+        navigation.navigate(ROUTE.AUTH_OTP, {phone})
     }
 
     function renderSignupView() {
@@ -27,6 +27,8 @@ const SignUp = ({ navigation }) => {
                 txtBtnPolicy={TEXTS.txtBtnPolicy}
                 txtPolicyUsage={TEXTS.txtPolicyUsage}
                 txtForMe={TEXTS.txtForMe}
+                onSignal={sendPhoneToVerify}
+                onChange={(txt)=>setPhone(txt)}
             />
         )
     }

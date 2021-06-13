@@ -1,8 +1,8 @@
 import React, { FC } from 'react'
-import { Home, Search, Bag, Setting, Account, ShopingCart } from '../screens'
-import { FONTS, SIZE, COLORS, ROUTE, icons } from '../constants'
+import { Home, Search,Setting, Account, ShopingCart } from '../screens'
+import {COLORS, ROUTE} from '../constants'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {StyleSheet,TouchableOpacity, View } from 'react-native';
 import { House, HouseBlack, Find, FindBlack, Heart, HeartBlack, Settings, SettingBlack, Accounts, AccountBlack } from '../assets/icons'
 const Tab = createBottomTabNavigator()
 
@@ -40,7 +40,7 @@ const Tabs = (props) => {
                     focused ? <SettingBlack width={24} height={24} /> : <Settings width={24} height={24} />
                 )
             }} />
-            <Tab.Screen name={ROUTE.ACCOUNT} component={Account} options={{
+            <Tab.Screen name={ROUTE.ACCOUNT} component={Account}  options={{
                 tabBarIcon: ({ focused }) => (
                     focused ? <AccountBlack width={24} height={24} /> : <Accounts width={24} height={24} />
                 )

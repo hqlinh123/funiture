@@ -18,6 +18,7 @@ export const SIZE = {
     font: 14, 
     padding: 10,
     radius: 20,
+    radius1: 25,
     imageW: 40,
     padding2: 12,
     // app font size 
@@ -41,7 +42,7 @@ export const FONTS = {
 
     h1 :{fontFamily:"Roboto-Regular",fontSize: SIZE.h1, lineHeight: 36},
     h2 :{fontFamily:"Roboto-Regular",fontSize: SIZE.h2, lineHeight: 30},
-    h3 :{fontFamily:"Roboto-Regular",fontSize: SIZE.h3, lineHeight: 22},
+    h3 :{fontFamily:"Roboto-Bold",fontSize: SIZE.h3, lineHeight: 22},
     h4 :{fontFamily:"Roboto-Bold",fontSize: SIZE.h4, lineHeight: 22},
 
     body1 :{fontFamily:"Roboto-Regular",fontSize: SIZE.body1, lineHeight: 36},
@@ -66,7 +67,28 @@ export const TEXTS = {
     txtBtnPolicy:"Điều khoản sử dụng",
     txtForMe:"của ABCom",
     passwordSignIn:"Nhập mật khẩu của bạn",
-    passwordSignUp:"Tạo một mật khẩu ít nhất 5 ký tự"
+    passwordSignUp:"Tạo một mật khẩu ít nhất 5 ký tự",
+
+    txtMyCard:"Thẻ của tôi",
+    txtFastPay:"Thanh toán siêu tốc chỉ ngay 1 chạm",
+
+    txtMyRewars:"Phần thưởng của tôi",
+    txtPoint:"điểm",
+    txtCodeDiscount:"Mã giảm giá của tôi",
+    txtSpecialBonus:"Phấn thưởng đặc biệt",
+
+    txtRefund:"Hoàn tiền của tôi",
+    txtSubRefund:"Quản lý các yêu cầu hoàn tiền trong cũng một mục",
+
+    txtFeatureMember:"Tính năng dành cho thành viên",
+
+    txtSupportCenter:"Trung tâm hỗ trợ",
+    txtSubSupport:"Hỗ trợ và giải đáp thắc mắc của bạn",
+
+    txtSetting:"Cài đặt",
+    txtSubSetting:"Cập nhật kịp thời nhận ngay giá tốt"
+
+
 }
 
 const appTheme = {COLORS, SIZE, FONTS,TEXTS}

@@ -23,6 +23,7 @@ const SignIn = ({ navigation }) => {
             txtRegisterNow={TEXTS.txtRegisterNow}
             isSignIn={true}
             onNext={() => navigation.navigate(ROUTE.SIGN_UP)}
+            onSignal={() => navigation.navigate(ROUTE.ROOT_STACK, { screen: ROUTE.HOME })}
            />
         )
     }

@@ -1,17 +1,21 @@
 import React from 'react'
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
-import { IMAGES, SIZE, FONTS, COLORS, ROUTE } from '../constants'
+import { View, Text,LogBox, StyleSheet, Image, TouchableOpacity } from 'react-native'
+import { IMAGES, SIZE, FONTS, COLORS } from '../constants'
 import { InputField, ButtonStyle, SocialAuth, ImageBg,HeaderBar } from '../components'
+import * as Animatable from 'react-native-animatable';
 
+LogBox.ignoreLogs(['Sending...']);
 function userAuth({
     dontAccountTitle,onNext, txtRegisterNow,isSignIn, navigation,usageTitle, 
     titleBtnForgotPass, backSignIn,placeholder, isSignup,title,subTitle,txtPolicyUsage,
-    txtBtnPolicy,txtForMe }) {
+    txtBtnPolicy,txtForMe,onSignal,onChange }) {
+
     function renderImageBG() {
         return (
             <ImageBg />
         )
     }
+    
     function renderTextView() {
         return (
             <View style={styles.viewText}>
@@ -36,14 +40,14 @@ function userAuth({
     function renderInputField() {
         return (
             <>
-                <InputField placeholder="Nhập SĐT của bạn" keyboardType='phone-pad' />
+                <InputField placeholder="Nhập SĐT của bạn" keyboardType='phone-pad' onChange={onChange}/>
                 <InputField placeholder={placeholder} />
                 <ButtonStyle
                     label={title}
                     backgroundColor="red"
                     color={COLORS.primary}
                     disabled={false}
-                    onPress={() => navigation.navigate(ROUTE.ROOT_STACK, { screen: ROUTE.HOME })}
+                    onPress={onSignal}
                 />
             </>
         )
@@ -91,31 +95,24 @@ function userAuth({
         )
     }
     return (
-        <View>
-           
+        <>
             {renderImageBG()}
-            <View style={styles.viewLogin}>
-                <View style={styles.viewContent}>
+            <View style={styles.viewLogin} >
+                <Animatable.View duration={2000} animation="fadeInDown" style={styles.viewContent}>
                     {renderTextView()}
                     {renderForm()}
-                </View>
+                </Animatable.View>
             </View>
             {isSignup && renderHeader()}
-        </View>
+        </>
     )
 }
 
 const styles = StyleSheet.create({
-    imgBg: {
-        width: SIZE.width,
-        height: SIZE.height
-    },
     viewLogin: {
-        backgroundColor: 'black',
         position: 'absolute',
         width: SIZE.width,
         height: SIZE.height,
-        opacity: 0.7,
         justifyContent: 'center',
         alignItems: 'center'
     },
@@ -128,12 +125,10 @@ const styles = StyleSheet.create({
     viewText: {
         flexDirection: 'row'
     },
-    viewWelcome: {
 
-    },
     viewLogo: {
         position: 'absolute',
-        right: 20,
+        right:0
     },
     viewInput: {
         marginTop: 30,
